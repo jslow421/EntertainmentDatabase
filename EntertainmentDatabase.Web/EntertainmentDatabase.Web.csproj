@@ -20,6 +20,7 @@
         <PackageReference Include="MongoDB.Bson" Version="2.8.1" />
         <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
         <PackageReference Include="MongoDB.Driver.Core" Version="2.8.1" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
         <PackageReference Include="VueCliMiddleware" Version="2.2.0" />
     </ItemGroup>
 
@@ -34,6 +35,10 @@
       <_ContentIncludedByDefault Remove="ClientApp\package-lock.json" />
       <_ContentIncludedByDefault Remove="ClientApp\package.json" />
       <_ContentIncludedByDefault Remove="ClientApp\public\manifest.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EntertainmentDatabase.Core\EntertainmentDatabase.Core.csproj" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

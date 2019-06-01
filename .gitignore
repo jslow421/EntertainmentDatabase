@@ -1,2 +1,10 @@
 
 \.idea/
+
+EntertainmentDatabase\.Core/obj/
+
+EntertainmentDatabase\.Services/obj/
+
+EntertainmentDatabase\.Services/bin/
+
+EntertainmentDatabase\.Core/bin/
