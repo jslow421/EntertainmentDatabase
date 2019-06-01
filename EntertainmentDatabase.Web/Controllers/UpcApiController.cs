@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EntertainmentDatabase.Web.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class UpcApiController : Controller
     {
         [HttpGet("[action]")]
