@@ -8,3 +8,7 @@ EntertainmentDatabase\.Services/obj/
 EntertainmentDatabase\.Services/bin/
 
 EntertainmentDatabase\.Core/bin/
+
+\.vs/EntertainmentDatabase/DesignTimeBuild/
+
+\.vs/EntertainmentDatabase/v16/
