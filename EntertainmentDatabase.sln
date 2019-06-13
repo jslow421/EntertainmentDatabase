@@ -6,6 +6,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntertainmentDatabase.Core"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntertainmentDatabase.Services", "EntertainmentDatabase.Services\EntertainmentDatabase.Services.csproj", "{A4235244-79B3-47B4-97A8-60DB368BA5B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntertainmentDatabase.UnitTests", "EntertainmentDatabase.UnitTests\EntertainmentDatabase.UnitTests.csproj", "{C4D82CDF-8B76-4CE6-ADAE-70FF811C3DD0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9B700B4E-81A5-4182-BACE-43BA224726FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntertainmentDatabase.IntegrationTests", "EntertainmentDatabase.IntegrationTests\EntertainmentDatabase.IntegrationTests.csproj", "{F557B150-C716-4810-9840-E4DCD062E6ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +30,17 @@ Global
 		{A4235244-79B3-47B4-97A8-60DB368BA5B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4235244-79B3-47B4-97A8-60DB368BA5B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4235244-79B3-47B4-97A8-60DB368BA5B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D82CDF-8B76-4CE6-ADAE-70FF811C3DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D82CDF-8B76-4CE6-ADAE-70FF811C3DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D82CDF-8B76-4CE6-ADAE-70FF811C3DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D82CDF-8B76-4CE6-ADAE-70FF811C3DD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F557B150-C716-4810-9840-E4DCD062E6ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F557B150-C716-4810-9840-E4DCD062E6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F557B150-C716-4810-9840-E4DCD062E6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F557B150-C716-4810-9840-E4DCD062E6ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C4D82CDF-8B76-4CE6-ADAE-70FF811C3DD0} = {9B700B4E-81A5-4182-BACE-43BA224726FF}
+		{F557B150-C716-4810-9840-E4DCD062E6ED} = {9B700B4E-81A5-4182-BACE-43BA224726FF}
 	EndGlobalSection
 EndGlobal
