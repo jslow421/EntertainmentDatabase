@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EntertainmentDatabase.Core.Entities
+namespace EntertainmentDatabase.Core.Services
 {
-    class TestEntity
+    class DvdService
     {
     }
 }
