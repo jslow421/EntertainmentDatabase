@@ -4,7 +4,7 @@ using System.Text;
 using EntertainmentDatabase.Core.Entities;
 using EntertainmentDatabase.Services;
 
-namespace EntertainmentDatabase.Core.Services
+namespace EntertainmentDatabase.Services
 {
     public class BookService
     {
@@ -15,7 +15,19 @@ namespace EntertainmentDatabase.Core.Services
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.BooksCollectionName);
 
-            _books = database.GetCollection<Book>(settings.BooksCollectionName);]
+            _books = database.GetCollection<Book>(settings.BooksCollectionName);
+        }
+
+        public List<Book> Get() =>
+            _books.Find(book => true).ToList();
+
+        public Book Get(string id) =>
+            _books.Find<Book>(book => book.Id == id).FirstOrDefault();
+
+        public Book Create (Book book)
+        {
+            _books.InsertOne(book);
+                return book;
         }
     }
 }

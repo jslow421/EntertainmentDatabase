@@ -30,6 +30,8 @@ namespace EntertainmentDatabase.Web
                 sp.GetRequiredService<IOptions<EntertainmentDatabaseSettings>>().Value);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddSingleton<BookService>();
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "client_app/dist";; });
         }
