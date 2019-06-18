@@ -12,5 +12,7 @@ namespace EntertainmentDatabase.Web.Controllers
         {
             return View();
         }
+
+        
     }
 }
