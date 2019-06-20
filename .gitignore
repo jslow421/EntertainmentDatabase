@@ -1,3 +1,10 @@
+bin
+obj/
+packages
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+netcoreapp2.2/
 
 \.idea/
 
@@ -12,10 +19,6 @@ EntertainmentDatabase\.Core/bin/
 \.vs/EntertainmentDatabase/DesignTimeBuild/
 
 \.vs/EntertainmentDatabase/v16/
-
-EntertainmentDatabase\.IntegrationTests/bin/
-
-EntertainmentDatabase\.IntegrationTests/obj/
 
 EntertainmentDatabase\.UnitTests/bin/
 
