@@ -8,4 +8,8 @@
       <ProjectReference Include="..\EntertainmentDatabase.Core\EntertainmentDatabase.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="EntertainmentDatabase.Services.csproj.DotSettings" />
+    </ItemGroup>
+
 </Project>

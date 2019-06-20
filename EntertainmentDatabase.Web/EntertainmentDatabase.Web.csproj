@@ -39,6 +39,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\EntertainmentDatabase.Core\EntertainmentDatabase.Core.csproj" />
+      <ProjectReference Include="..\EntertainmentDatabase.Services\EntertainmentDatabase.Services.csproj" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
