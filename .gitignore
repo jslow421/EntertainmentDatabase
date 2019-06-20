@@ -3,6 +3,8 @@ obj/
 packages
 [Bb]in/
 [Oo]bj/
+[Dd]ebug/
+netcoreapp2.2/
 
 \.idea/
 
