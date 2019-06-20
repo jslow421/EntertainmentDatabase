@@ -2,6 +2,7 @@ bin
 obj/
 packages
 [Bb]in/
+[Oo]bj/
 
 \.idea/
 
