@@ -21,14 +21,14 @@ namespace EntertainmentDatabase.Services
         }
 
         public async Task<IEnumerable<Book>> Get() =>
-            _books.Find(book => true).ToList();
+            await _books.Find(book => true).ToListAsync();
 
         public async Task<Book> Get(string id) =>
-            _books.Find<Book>(book => book.Id == id).FirstOrDefault();
+            await _books.Find<Book>(book => book.Id == id).FirstOrDefaultAsync();
 
         public async Task<Book> Create (Book book)
         {
-            _books.InsertOne(book);
+            await _books.InsertOneAsync(book);
                 return book;
         }
     }
