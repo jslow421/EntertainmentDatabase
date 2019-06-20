@@ -38,6 +38,8 @@ namespace EntertainmentDatabase.Web
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "client_app/dist";; });
+            // Services
+            services.AddSingleton<IUpcDataManager, UpcDataManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

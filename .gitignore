@@ -12,3 +12,11 @@ EntertainmentDatabase\.Core/bin/
 \.vs/EntertainmentDatabase/DesignTimeBuild/
 
 \.vs/EntertainmentDatabase/v16/
+
+EntertainmentDatabase\.IntegrationTests/bin/
+
+EntertainmentDatabase\.IntegrationTests/obj/
+
+EntertainmentDatabase\.UnitTests/bin/
+
+EntertainmentDatabase\.UnitTests/obj/
