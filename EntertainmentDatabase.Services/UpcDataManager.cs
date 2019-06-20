@@ -23,6 +23,7 @@ namespace EntertainmentDatabase.Services
                 }
             }
 
+            // todo I'm not wild about two returns. Consider other options
             if (response == null) return new UpcItemDbDto();
             
             var data = await response.Content.ReadAsStringAsync();
