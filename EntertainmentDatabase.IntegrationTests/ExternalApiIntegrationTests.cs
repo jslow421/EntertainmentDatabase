@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.ComTypes;
 using EntertainmentDatabase.Services;
 using Xunit;
 
