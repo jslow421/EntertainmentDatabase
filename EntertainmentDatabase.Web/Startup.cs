@@ -1,4 +1,5 @@
 using EntertainmentDatabase.Services;
+using EntertainmentDatabase.Services.ServiceInterfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,7 +31,10 @@ namespace EntertainmentDatabase.Web
                 sp.GetRequiredService<IOptions<EntertainmentDatabaseSettings>>().Value);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddSingleton<BookService>();
+            //The microsoft docs just had me add singletong the Service
+            //I think I want to have an interface though.
+            services.AddSingleton<IBookService, BookService>();
+            //services.AddSingleton<BookService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "client_app/dist";; });
