@@ -8,5 +8,6 @@ namespace EntertainmentDatabase.Core.Dto
     {
         [JsonProperty("items")]
         public List<UpcItemDbDetailsDto> Items { get; set; }
+        public string Code { get; set; }
     }
 }

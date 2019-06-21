@@ -11,7 +11,7 @@ namespace EntertainmentDatabase.IntegrationTests
             var upcDataManager = new UpcDataManager();
             var result = await upcDataManager.GetItemDetailsFromExternalApi("786936816365");
             
-            Assert.NotNull(result);
+            Assert.True(result.Code.Equals("OK"));
         }
     }
 }
