@@ -23,5 +23,9 @@ namespace EntertainmentDatabase.Web.Controllers
         [HttpGet]
         public async Task<IEnumerable<Book>> Get() =>
             await _bookService.Get();
+
+        [HttpGet("{id}")]
+        public async Task<Book> Get(string id) =>
+            await _bookService.Get(id);
     }
 }
