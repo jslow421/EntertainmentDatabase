@@ -1,5 +1,3 @@
-using System;
-using System.Net;
 using System.Threading.Tasks;
 using EntertainmentDatabase.Core.Dto;
 using EntertainmentDatabase.Services;
@@ -13,11 +11,12 @@ namespace EntertainmentDatabase.Web.Controllers
     public class UpcApiController : Controller
     {
         private IUpcDataManager UpcDataManager { get; }
+
         public UpcApiController(IUpcDataManager upcDataManager)
         {
             UpcDataManager = upcDataManager;
         }
-        
+
         [HttpGet("[action]")]
         public async Task<UpcItemDbDto> GetDetailsByUpc()
         {
@@ -25,5 +24,5 @@ namespace EntertainmentDatabase.Web.Controllers
 
             return result;
         }
-}
+    }
 }
