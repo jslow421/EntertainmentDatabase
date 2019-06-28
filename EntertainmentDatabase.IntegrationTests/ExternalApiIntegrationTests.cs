@@ -14,4 +14,4 @@ namespace EntertainmentDatabase.IntegrationTests
             Assert.True(result.Code.Equals("OK"));
         }
     }
-}
+}  

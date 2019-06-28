@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace EntertainmentDatabase.Core.Entities
 {
-    class Dvd
+    public class Dvd
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

@@ -34,6 +34,7 @@ namespace EntertainmentDatabase.Web
             //The microsoft docs just had me add singletong the Service
             //I think I want to have an interface though.
             services.AddSingleton<IBookService, BookService>();
+            services.AddSingleton<IDvdService, DvdService>();
             //services.AddSingleton<BookService>();
 
             // In production, the React files will be served from this directory

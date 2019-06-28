@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EntertainmentDatabase.Core.Services
+namespace EntertainmentDatabase.Services
 {
     class BoardGameService
     {
