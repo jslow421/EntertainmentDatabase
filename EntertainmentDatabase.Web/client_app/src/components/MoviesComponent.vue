@@ -18,7 +18,7 @@
           </v-form>
         </v-flex>
       </v-layout>
-    </v-container>
+    
 
         <h1>Movie Data</h1>
         <h3>Found {{ numberOfMovies }} movie(s)</h3>
@@ -46,11 +46,11 @@
                 <td>{{ props.item.title }}</td>
                 <td class="text-xs-right">{{ props.item.ean }}</td>
                 <td class="text-xs-right">{{ props.item.upc }}</td>
-                <td class="text-xs-right">{{ props.item.description }}</td>
+                <td class="text-xs-left">{{ props.item.description }}</td>
 
             </template>
         </v-data-table>
-        
+        </v-container>
     </div>
 
 
