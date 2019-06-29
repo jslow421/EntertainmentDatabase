@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using EntertainmentDatabase.Core.Dto;
 using EntertainmentDatabase.Services;
+using EntertainmentDatabase.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EntertainmentDatabase.Web.Controllers
@@ -17,10 +18,10 @@ namespace EntertainmentDatabase.Web.Controllers
             UpcDataManager = upcDataManager;
         }
 
-        [HttpGet("[action]")]
-        public async Task<UpcItemDbDto> GetDetailsByUpc()
+        [HttpPost("[action]")]
+        public async Task<UpcItemDbDto> GetDetailsByUpc([FromBody] UpcApiRequest request)
         {
-            var result = await UpcDataManager.GetItemDetailsFromExternalApi("786936816365");
+            var result = await UpcDataManager.GetItemDetailsFromExternalApi(request.Upc);
 
             return result;
         }

@@ -1,5 +1,10 @@
 <template>
     <div>
+        <form id="upc-input-form" v-on:submit.prevent="getMovieDataFromService">
+            <input type="number" class="upc-input" v-model="inputUpc" placeholder="Enter UPC">
+            <button type="submit">Search</button>
+        </form>
+        
         <h1>Movie Data</h1>
         <h3>Found {{numberOfMovies}} movie(s)</h3>
         <table class="table table-bordered table-hover">
@@ -31,8 +36,6 @@
 <script>
     import {MovieRestApiService} from '@/api-services';
 
-    const API_URL = 'http://localhost:8000';
-
     export default {
 
         name: 'Movies',
@@ -43,6 +46,7 @@
             return {
                 movies: [],
                 numberOfMovies: 0,
+                inputUpc: '',
             };
         },
 
@@ -54,10 +58,17 @@
                     this.numberOfMovies = data.items.length;
                 });
             },
+
+            getMovieDataFromService() {
+                MovieRestApiService.getMovieByUpc({upc: this.inputUpc}).then((data) => {
+                    this.movies = data.items;
+                    this.numberOfMovies = data.items.length;
+                });
+            },
         },
 
         mounted() {
-            this.findMovies();
+            // this.findMovies();
         },
     };
 </script>

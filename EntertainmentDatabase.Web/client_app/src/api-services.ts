@@ -8,4 +8,9 @@ export class MovieRestApiService {
         const url = API_URL + '/api/UpcApi/GetDetailsByUpc';
         return axios.get(url).then((response) => response.data);
     }
+
+    public static getMovieByUpc(dto: object) {
+        const url = API_URL + '/api/UpcApi/GetDetailsByUpc';
+        return axios.post(url, dto).then((response) => response.data);
+    }
 }
