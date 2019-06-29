@@ -4,7 +4,7 @@
             <input type="number" class="upc-input" v-model="inputUpc" placeholder="Enter UPC">
             <button type="submit">Search</button>
         </form>
-        
+
         <h1>Movie Data</h1>
         <h3>Found {{numberOfMovies}} movie(s)</h3>
         <table class="table table-bordered table-hover">
@@ -52,7 +52,7 @@
 
         methods: {
             findMovies() {
- 
+
                 MovieRestApiService.getMovies().then((data) => {
                     this.movies = data.items;
                     this.numberOfMovies = data.items.length;
