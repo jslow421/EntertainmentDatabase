@@ -5,9 +5,12 @@ import store from "./store";
 import "./registerServiceWorker";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import Vuetify from "vuetify";
+import "vuetify/dist/vuetify.min.css";
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
+Vue.use(Vuetify);
 
 new Vue({
   router,
