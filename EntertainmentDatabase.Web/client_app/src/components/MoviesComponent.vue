@@ -41,7 +41,7 @@
             </tbody>
         </v-data-table>
         <div></div>-->
-        <v-data-table :items="movies" class="elevation-1">
+        <v-data-table :items="movies" :headers="headers" class="elevation-1">
             <template v-slot:items="props">
                 <td>{{ props.item.title }}</td>
                 <td class="text-xs-right">{{ props.item.ean }}</td>
@@ -69,7 +69,18 @@
             return {
                 movies: [],
                 numberOfMovies: 0,
-                inputUpc: ""
+                inputUpc: "",
+                headers: [
+                    {
+                        text: 'Title',
+                        align: 'left',
+                        sortable: false,
+                        value: 'title'
+                    },
+                    { text: 'EAN', value: 'ean' },
+                    { text: 'UPC', value: 'upc' },
+                    { text: 'Description', value: 'description' }
+                ],
             };
         },
 
