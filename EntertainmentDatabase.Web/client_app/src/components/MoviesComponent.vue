@@ -12,14 +12,19 @@
             <h1>Movie Data</h1>
             <h3>Found {{ numberOfMovies }} movie(s)</h3>
 
-            <v-data-table :items="movies" :headers="headers" class="elevation-1">
+            <div class="text-xs-center" v-if="isRequestingData">
+                <v-progress-circular indeterminate color="primary"></v-progress-circular>
+            </div>
+            <div class="text-xs-center" v-if="message">
+                <span>{{ message }}</span>
+            </div>
+            <v-data-table :items="movies" :headers="headers" class="elevation-1" v-if="numberOfMovies > 0">
                 <!--suppress XmlUnboundNsPrefix -->
                 <template v-slot:items="props">
                     <td>{{ props.item.title }}</td>
-                    <td class="text-xs-right">{{ props.item.ean }}</td>
                     <td class="text-xs-right">{{ props.item.upc }}</td>
+                    <td class="text-xs-right">{{ props.item.ean }}</td>
                     <td class="text-xs-left">{{ props.item.description }}</td>
-
                 </template>
             </v-data-table>
         </v-container>
@@ -39,6 +44,9 @@
                 movies: [],
                 numberOfMovies: 0,
                 inputUpc: "",
+                // set value to show spinner while waiting for data
+                isRequestingData: false,
+                message: "",
                 headers: [
                     {
                         text: 'Title',
@@ -46,28 +54,28 @@
                         sortable: false,
                         value: 'title'
                     },
-                    {text: 'EAN', value: 'ean'},
                     {text: 'UPC', value: 'upc'},
+                    {text: 'EAN', value: 'ean'},
                     {text: 'Description', value: 'description'}
                 ],
             };
         },
 
         methods: {
-            findMovies() {
-                MovieRestApiService.getMovies().then(data => {
-                    this.movies = data.items;
-                    this.numberOfMovies = data.items.length;
-                });
-            },
-
             getMovieDataFromService() {
+                this.isRequestingData = true;
+                // empty object array on search
+                this.movies.pop();
                 MovieRestApiService.getMovieByUpc({upc: this.inputUpc}).then(data => {
-                    this.movies = data.items;
-                    this.numberOfMovies = data.items.length;
+                    if (data.items){
+                        this.movies = data.items;
+                        this.numberOfMovies = data.items.length;
+                    }                    
+                }).catch((error) => this.message = error ).finally(() => {
+                    // clear input
+                    this.inputUpc = ""; 
+                    this.isRequestingData = false
                 });
-
-                this.inputUpc = "";
             }
         },
 
