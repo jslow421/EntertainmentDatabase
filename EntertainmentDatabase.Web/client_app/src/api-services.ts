@@ -8,4 +8,9 @@ export class MovieRestApiService {
     const url = API_URL + "/api/UpcApi/GetDetailsByUpc";
     return axios.post(url, dto).then(response => response.data).catch((error) => console.log(error));
   }
+  
+  public static saveMovie(dto: object) {
+    const url = API_URL + "/api/UpcApi/SaveNewMovie";
+    return axios.post(url, dto).then(response => response.data);
+  }
 }

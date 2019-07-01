@@ -41,6 +41,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\EntertainmentDatabase.Core\EntertainmentDatabase.Core.csproj" />
+      <ProjectReference Include="..\EntertainmentDatabase.Database.AppAccess\EntertainmentDatabase.Database.AppAccess.csproj" />
       <ProjectReference Include="..\EntertainmentDatabase.Services\EntertainmentDatabase.Services.csproj" />
     </ItemGroup>
 

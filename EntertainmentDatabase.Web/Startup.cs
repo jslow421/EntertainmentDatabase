@@ -1,3 +1,6 @@
+using EntertainmentDatabase.Database.AppAccess;
+using EntertainmentDatabase.Database.AppAccess.Repository;
+using EntertainmentDatabase.Database.AppAccess.Repository.Interfaces;
 using EntertainmentDatabase.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using VueCliMiddleware;
 
 namespace EntertainmentDatabase.Web
@@ -24,10 +28,16 @@ namespace EntertainmentDatabase.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.Configure<MoviesMongoDbSettings>(
+                Configuration.GetSection(nameof(MoviesMongoDbSettings)));
+            services.AddSingleton<IMoviesMongoDbSettings>(sp =>
+                sp.GetRequiredService<IOptions<MoviesMongoDbSettings>>().Value);
+            
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "client_app/dist";; });
             // Services
             services.AddSingleton<IUpcDataManager, UpcDataManager>();
+            services.AddSingleton<IMoviesMongoDbRepository, MoviesMongoDbRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

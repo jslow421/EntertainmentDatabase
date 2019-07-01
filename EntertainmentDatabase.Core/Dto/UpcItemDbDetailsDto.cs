@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace EntertainmentDatabase.Core.Dto
 {
@@ -8,5 +8,6 @@ namespace EntertainmentDatabase.Core.Dto
         public string Ean { get; set; }
         public string Upc { get; set; }
         public string Description { get; set; }
+        public IEnumerable<string> Images { get; set; }
     }
 }

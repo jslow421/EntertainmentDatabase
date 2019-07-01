@@ -23,8 +23,13 @@ namespace EntertainmentDatabase.Services
                 }
             }
 
-            // todo I'm not wild about two returns. Consider other options
-            if (response == null) return new UpcItemDbDto();
+            // I'm not wild about two returns. Consider other options
+            // Just faking this for now - need to actually figure out why it would be null
+            if (response == null) return new UpcItemDbDto
+            {
+                Message = "Response was null",
+                Code = "NOT_FOUND"
+            };
             
             var data = await response.Content.ReadAsStringAsync();
             var item = JsonConvert.DeserializeObject<UpcItemDbDto>(data);
