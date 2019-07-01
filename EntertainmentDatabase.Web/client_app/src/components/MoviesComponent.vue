@@ -112,6 +112,7 @@
                 this.newMovieEan = item.ean;
                 this.newMovieDescription = item.description;
                 this.newMovieImages = item.images;
+                this.newMovieTitle = item.title;
             },
             
             saveMovieData() {
