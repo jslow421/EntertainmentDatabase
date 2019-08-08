@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Dapper;
-using Dapper.Contrib.Extensions;
 using EntertainmentDatabase.Core.Models;
 using EntertainmentDatabase.Database.AppAccess.Repository.Interfaces;
 

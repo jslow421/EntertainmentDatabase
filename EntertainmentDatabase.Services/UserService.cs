@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using EntertainmentDatabase.Core.Dto;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -14,7 +15,7 @@ namespace EntertainmentDatabase.Services
     {
         private List<UserDetailsDto> _users = new List<UserDetailsDto> 
         {
-            new UserDetailsDto { Username = "test", Password = "test" } 
+            new UserDetailsDto { Username = "john", Password = "password" } 
         };
 
         private readonly ServicesConfiguration _config;
@@ -24,7 +25,7 @@ namespace EntertainmentDatabase.Services
             _config = appSettings.Value;
         }
 
-        public UserDetailsDto Authenticate(string username, string password)
+        public async Task<UserDetailsDto> Authenticate(string username, string password)
         {
             var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
 

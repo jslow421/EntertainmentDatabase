@@ -1,9 +1,12 @@
+using System;
+using System.Net;
 using System.Threading.Tasks;
 using EntertainmentDatabase.Core.Dto;
 using EntertainmentDatabase.Database.AppAccess.Repository.Interfaces;
 using EntertainmentDatabase.Services;
 using EntertainmentDatabase.Web.Models.User;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EntertainmentDatabase.Web.Controllers
@@ -29,8 +32,10 @@ namespace EntertainmentDatabase.Web.Controllers
                 Password = loginRequest.Password
             };
 
-            //var result = await UserService.Authenticate(user);
-            
+            var result = await UserService.Authenticate(user.Username, user.Password);
+
+            Response.Cookies.Append("token", result.Token,
+                new CookieOptions{HttpOnly = true, Expires = DateTimeOffset.Now.AddDays(14), Secure = true});
         }
     }
 }

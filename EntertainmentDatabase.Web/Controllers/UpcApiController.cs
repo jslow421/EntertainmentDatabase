@@ -4,6 +4,7 @@ using EntertainmentDatabase.Core.Models;
 using EntertainmentDatabase.Database.AppAccess.Repository.Interfaces;
 using EntertainmentDatabase.Services;
 using EntertainmentDatabase.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EntertainmentDatabase.Web.Controllers
@@ -22,6 +23,7 @@ namespace EntertainmentDatabase.Web.Controllers
             MovieWriteDataAccess = movieWriteDataAccess;
         }
 
+        [Authorize]
         [HttpPost("[action]")]
         public async Task<UpcItemDbDto> GetDetailsByUpc([FromBody] UpcApiRequest request)
         {
