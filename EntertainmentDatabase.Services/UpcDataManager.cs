@@ -15,6 +15,7 @@ namespace EntertainmentDatabase.Services
             {
                 try
                 {
+                    // todo move api url to settings
                     response = await client.GetAsync($"https://api.upcitemdb.com/prod/trial/lookup?upc={upc}");
                 }
                 catch (Exception e)
@@ -23,8 +24,7 @@ namespace EntertainmentDatabase.Services
                 }
             }
 
-            // I'm not wild about two returns. Consider other options
-            // Just faking this for now - need to actually figure out why it would be null
+            // todo Consider other options to handle this without multiple returns
             if (response == null) return new UpcItemDbDto
             {
                 Message = "Response was null",

@@ -33,6 +33,7 @@ namespace EntertainmentDatabase.Web.Controllers
 
             var result = await UserService.Authenticate(user.Username, user.Password);
 
+            // todo move some of this token config stuff to appsettings
             Response.Cookies.Append("token", result.Token,
                 new CookieOptions{HttpOnly = true, Expires = DateTimeOffset.Now.AddDays(14), Secure = true});
         }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EntertainmentDatabase.Web.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
@@ -23,13 +24,11 @@ namespace EntertainmentDatabase.Web.Controllers
             MovieWriteDataAccess = movieWriteDataAccess;
         }
 
-        [Authorize]
+        
         [HttpPost("[action]")]
         public async Task<UpcItemDbDto> GetDetailsByUpc([FromBody] UpcApiRequest request)
         {
-            var result = await UpcDataManager.GetItemDetailsFromExternalApi(request.Upc);
-
-            return result;
+            return await UpcDataManager.GetItemDetailsFromExternalApi(request.Upc);
         }
 
         [HttpPost("[action]")]

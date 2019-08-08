@@ -13,12 +13,13 @@ namespace EntertainmentDatabase.Services
 {
     public class UserService : IUserService
     {
+        // todo dump this test after implementing actual user table
         private List<UserDetailsDto> _users = new List<UserDetailsDto> 
         {
             new UserDetailsDto { Username = "john", Password = "password" } 
         };
 
-        private readonly ServicesConfiguration _config;
+        private readonly ServicesConfiguration _config; // todo inject this value rather than the whole config
 
         public UserService(IOptions<ServicesConfiguration> appSettings)
         {
@@ -28,8 +29,7 @@ namespace EntertainmentDatabase.Services
         public async Task<UserDetailsDto> Authenticate(string username, string password)
         {
             var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
-
-            // return null if user not found
+            
             if (user == null)
                 return null;
 
