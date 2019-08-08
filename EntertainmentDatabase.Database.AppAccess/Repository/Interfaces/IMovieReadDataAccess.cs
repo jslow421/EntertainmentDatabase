@@ -4,9 +4,10 @@ using EntertainmentDatabase.Core.Models;
 
 namespace EntertainmentDatabase.Database.AppAccess.Repository.Interfaces
 {
-    public interface IMoviesMongoDbRepository
+    public interface IMovieReadDataAccess
     {
-        List<MovieModel> GetAllMovies();
-        Task<MovieModel> AddMovie(MovieModel movie);
+        Task<MovieModel> GetMovieByUpc(int upc);
+        Task<MovieModel> GetMovieById(int id);
+        Task<IEnumerable<MovieModel>> GetAllMovies();
     }
 }

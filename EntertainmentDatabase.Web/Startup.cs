@@ -1,15 +1,16 @@
+using System.Text;
 using EntertainmentDatabase.Database.AppAccess;
 using EntertainmentDatabase.Database.AppAccess.Repository;
 using EntertainmentDatabase.Database.AppAccess.Repository.Interfaces;
 using EntertainmentDatabase.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using VueCliMiddleware;
 
 namespace EntertainmentDatabase.Web
@@ -28,16 +29,51 @@ namespace EntertainmentDatabase.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.Configure<MoviesMongoDbSettings>(
-                Configuration.GetSection(nameof(MoviesMongoDbSettings)));
-            services.AddSingleton<IMoviesMongoDbSettings>(sp =>
-                sp.GetRequiredService<IOptions<MoviesMongoDbSettings>>().Value);
-            
+            // Connection strings
+            var userConnectionString = Configuration.GetConnectionString("UserDatabase");
+            var movieConnectionString = Configuration.GetConnectionString("MovieDatabase");
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "client_app/dist";; });
+            
             // Services
+            services.AddSingleton<IDbConnectionFactory>(s => new DbConnectionFactory(movieConnectionString));
             services.AddSingleton<IUpcDataManager, UpcDataManager>();
-            services.AddSingleton<IMoviesMongoDbRepository, MoviesMongoDbRepository>();
+            services.AddSingleton<IUserService, UserService>();
+            
+            // Repositories
+            services.AddSingleton<IMovieReadDataAccess, MovieReadDataAccess>();
+            services.AddSingleton<IMovieWriteDataAccess, MovieWriteDataAccess>();
+            
+            // Auth
+            var servicesConfiguration = Configuration.GetSection("ServicesConfiguration");
+            services.Configure<ServicesConfiguration>(servicesConfiguration);
+
+            // configure jwt authentication
+            var appSettings = servicesConfiguration.Get<ServicesConfiguration>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
+            // configure DI for application services
+            services.AddScoped<IUserService, UserService>();
+            
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

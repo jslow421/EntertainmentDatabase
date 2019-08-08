@@ -14,12 +14,12 @@ namespace EntertainmentDatabase.Web.Controllers
     public class UpcApiController : Controller
     {
         private IUpcDataManager UpcDataManager { get; }
-        private IMoviesMongoDbRepository MoviesRepository { get; }
+        private IMovieWriteDataAccess MovieWriteDataAccess { get; }
 
-        public UpcApiController(IUpcDataManager upcDataManager, IMoviesMongoDbRepository moviesRepository)
+        public UpcApiController(IUpcDataManager upcDataManager, IMovieWriteDataAccess movieWriteDataAccess)
         {
             UpcDataManager = upcDataManager;
-            MoviesRepository = moviesRepository;
+            MovieWriteDataAccess = movieWriteDataAccess;
         }
 
         [HttpPost("[action]")]
@@ -33,7 +33,7 @@ namespace EntertainmentDatabase.Web.Controllers
         [HttpPost("[action]")]
         public async Task SaveNewMovie([FromBody] SaveNewMovieRequest request)
         {
-            var result = await MoviesRepository.AddMovie(new MovieModel
+            await MovieWriteDataAccess.SaveMovie(new MovieModel
             {
                 Upc = request.Upc,
                 Ean = request.Ean,

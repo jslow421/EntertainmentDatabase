@@ -27,7 +27,6 @@
                         <td class="text-xs-right">{{props.item.upc}}</td>
                         <td class="text-xs-right">{{props.item.ean}}</td>
                         <td class="text-xs-left">{{props.item.description}}</td>
-
                     </tr>
                 </template>
             </v-data-table>
