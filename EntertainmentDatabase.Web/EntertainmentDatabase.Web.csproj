@@ -30,6 +30,7 @@
         <Content Remove="$(SpaRoot)**" />
         <Content Include="client_app\public\favicon.ico" />
         <Content Include="client_app\src\components\MoviesComponent.vue" />
+        <Content Include="client_app\yarn.lock" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
     </ItemGroup>
