@@ -2,7 +2,6 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using EntertainmentDatabase.Core.Dto;
-using EntertainmentDatabase.Database.AppAccess.Repository.Interfaces;
 using EntertainmentDatabase.Services;
 using EntertainmentDatabase.Web.Models.User;
 using Microsoft.AspNetCore.Authorization;
