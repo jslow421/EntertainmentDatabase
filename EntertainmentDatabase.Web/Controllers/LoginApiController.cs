@@ -40,9 +40,10 @@ namespace EntertainmentDatabase.Web.Controllers
                 new ClaimsPrincipal(claimsIdentity),
                 new AuthenticationProperties
                 {
+                    // todo commented out lines are for implementing a remember me option
                     //IsPersistent = request.IsRememberMeChecked,
                     //ExpiresUtc = request.IsRememberMeChecked ? DateTime.UtcNow.AddSeconds(AuthenticationOptions.Value.PersistentCookieExpirationInSeconds) : (DateTimeOffset?)null
-                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1)
+                    AllowRefresh = true
                 });
             // Implement remember later
             /*HttpContext.Response.Cookies.Append(
