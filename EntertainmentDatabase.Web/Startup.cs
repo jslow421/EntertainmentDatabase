@@ -79,6 +79,7 @@ namespace EntertainmentDatabase.Web
                     options.LoginPath = "/Signin";
                     options.SlidingExpiration = true;
                     options.ExpireTimeSpan = new TimeSpan(0, 0, 0, 10);
+                    options.Cookie.Expiration = TimeSpan.FromDays(1);
                 });
 
 
