@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using EntertainmentDatabase.Core.Dto;
 using EntertainmentDatabase.Core.Models;
@@ -9,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EntertainmentDatabase.Web.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Entertainment-Database")]
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
@@ -28,6 +31,7 @@ namespace EntertainmentDatabase.Web.Controllers
         [HttpPost("[action]")]
         public async Task<UpcItemDbDto> GetDetailsByUpc([FromBody] UpcApiRequest request)
         {
+            var claims = GetUniqueIdClaimInt64(User);
             return await UpcDataManager.GetItemDetailsFromExternalApi(request.Upc);
         }
 
@@ -41,6 +45,20 @@ namespace EntertainmentDatabase.Web.Controllers
                 Description = request.Description,
                 Title = request.Title
             });
+        }
+        
+        
+        public static string GetUniqueIdClaimString(ClaimsPrincipal principal)
+        {
+            return principal.Claims.FirstOrDefault(c => c.Type == "UniqueId")?.Value;
+        }
+
+        public static long? GetUniqueIdClaimInt64(ClaimsPrincipal principal)
+        {
+            string rawClaimValue = principal.Claims.FirstOrDefault(c => c.Type == "UniqueId")?.Value;
+            long? value = !String.IsNullOrWhiteSpace(rawClaimValue) ? Convert.ToInt64(rawClaimValue) : (long?)null;
+
+            return value;
         }
     }
 }

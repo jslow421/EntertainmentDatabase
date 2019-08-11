@@ -10,8 +10,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Identity.Core" Version="1.2.7" />
         <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -22,15 +25,17 @@
         <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
         <PackageReference Include="MongoDB.Driver.Core" Version="2.8.1" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+        <PackageReference Include="System.Security.Claims" Version="4.3.0" />
         <PackageReference Include="VueCliMiddleware" Version="2.2.0" />
     </ItemGroup>
 
     <ItemGroup>
         <!-- Don't publish the SPA source files, but do show them in the project files list -->
         <Content Remove="$(SpaRoot)**" />
+        <Content Include="client_app\package-lock.json" />
         <Content Include="client_app\public\favicon.ico" />
         <Content Include="client_app\src\components\MoviesComponent.vue" />
-        <Content Include="client_app\yarn.lock" />
+        <Content Include="client_app\src\components\SigninComponent.vue" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
     </ItemGroup>
@@ -58,13 +63,13 @@
         </Exec>
         <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
         <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
-        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn install" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
     </Target>
 
     <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
         <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn install" />
-        <Exec WorkingDirectory="$(SpaRoot)" Command="yarn run build" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
 
         <!-- Include the newly-built files in the publish output -->
         <ItemGroup>
