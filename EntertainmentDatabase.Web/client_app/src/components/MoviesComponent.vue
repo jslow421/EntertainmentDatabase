@@ -36,11 +36,7 @@
                         <v-text-field v-model="newMovieTitle" label="Title"></v-text-field>
                         <v-text-field v-model="newMovieUpc" label="Upc"></v-text-field>
                         <v-text-field v-model="newMovieEan" label="Ean"></v-text-field>
-                        <v-textarea
-                                name="input-7-1"
-                                label="Description"
-                                v-model="newMovieDescription"
-                        ></v-textarea>
+                        <v-textarea name="input-7-1" label="Description" v-model="newMovieDescription"></v-textarea>
                         <v-btn @click="saveMovieData">submit</v-btn>
                     </v-form>
                 </v-flex>
@@ -49,15 +45,12 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
     import {MovieRestApiService} from "@/api-services";
     import Vue from "vue";
 
-    export default {
-        name: "Movies",
-
-        components: {},
-
+    export default Vue.extend({
+        props: [],
         data() {
             return {
                 movies: [],
@@ -86,7 +79,6 @@
                 newMovieImages: [],
             };
         },
-
         methods: {
             getMovieDataFromService() {
                 this.isRequestingData = true;
@@ -105,17 +97,15 @@
                     this.isRequestingData = false;
                 });
             },
-
-            selectMovie(item) {
+            selectMovie(item: any) {
                 this.newMovieUpc = item.upc;
                 this.newMovieEan = item.ean;
                 this.newMovieDescription = item.description;
                 this.newMovieImages = item.images;
                 this.newMovieTitle = item.title;
             },
-            
+
             saveMovieData() {
-                console.log("attempting to save");
                 MovieRestApiService.saveMovie({
                     upc: this.newMovieUpc,
                     ean: this.newMovieEan,
@@ -123,13 +113,10 @@
                     description: this.newMovieDescription,
                     images: this.newMovieImages
                 }).then((data) => console.log(data));
-            },
+            }
         },
-
-        mounted() {
-            // this.findMovies();
-        }
-    };
+        computed: {}
+    });
 </script>
 
 <style scoped lang="scss"></style>
