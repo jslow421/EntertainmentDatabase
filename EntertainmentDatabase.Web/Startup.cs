@@ -76,7 +76,7 @@ namespace EntertainmentDatabase.Web
                     // Reference: https://www.owasp.org/index.php/SameSite
                     options.Cookie.SameSite = SameSiteMode.Lax;
 
-                    options.LoginPath = "/Signin";
+                    options.LoginPath = "/login";
                     options.SlidingExpiration = true;
                     options.ExpireTimeSpan = new TimeSpan(0, 0, 0, 10);
                     options.Cookie.Expiration = TimeSpan.FromDays(1);
