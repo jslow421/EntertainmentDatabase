@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using EntertainmentDatabase.Database.AppAccess;
 using EntertainmentDatabase.Database.AppAccess.Repository;
 using EntertainmentDatabase.Database.AppAccess.Repository.Interfaces;
@@ -43,15 +44,12 @@ namespace EntertainmentDatabase.Web
             services.AddSingleton<IDbConnectionFactory>(s => new DbConnectionFactory(movieConnectionString));
             services.AddSingleton<IUpcDataManager, UpcDataManager>();
             services.AddSingleton<IUserService, UserService>();
-
+            
             // Repositories
             services.AddSingleton<IMovieReadDataAccess, MovieReadDataAccess>();
             services.AddSingleton<IMovieWriteDataAccess, MovieWriteDataAccess>();
 
             // Auth
-            /*var servicesConfiguration = Configuration.GetSection("ServicesConfiguration");
-            services.Configure<ServicesConfiguration>(servicesConfiguration);*/
-
             // Reference: https://joonasw.net/view/aspnet-core-2-azure-ad-authentication
             services.AddAuthentication(options =>
                 {
@@ -61,10 +59,10 @@ namespace EntertainmentDatabase.Web
 
                     // 2) Authentication in requests and creating user principals from the cookie.
                     options.DefaultAuthenticateScheme = "Entertainment-Database";
-
+                    
                     // Open ID Connect Scheme
                     // 1) Respond to challenges from [Authorize] or ChallengeResult returned from controllers by sending the user to authenticate against the specified identity provider.
-                    // options.DefaultChallengeScheme = "OpenIdConnect-Scheme";
+                    options.DefaultChallengeScheme = "Entertainment-Database";
                 })
                 .AddCookie("Entertainment-Database", options =>
                 {
@@ -72,37 +70,18 @@ namespace EntertainmentDatabase.Web
                     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                     options.Cookie.Path = "/";
                     options.Cookie.Name = "luda-auth";
-
+                    // We'll be handling auth errors on the web app, so return codes rather than redirects.
+                    options.Events.OnRedirectToLogin = async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                        await context.Response.WriteAsync("Some custom error message if required");
+                    };
                     // Reference: https://www.owasp.org/index.php/SameSite
                     options.Cookie.SameSite = SameSiteMode.Lax;
-
-                    options.LoginPath = "/login";
                     options.SlidingExpiration = true;
                     options.ExpireTimeSpan = new TimeSpan(0, 0, 0, 10);
                     options.Cookie.Expiration = TimeSpan.FromDays(1);
                 });
-
-
-            // configure jwt authentication
-/*            var appSettings = servicesConfiguration.Get<ServicesConfiguration>();
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-            services.AddAuthentication(x =>
-                {
-                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(x =>
-                {
-                    x.RequireHttpsMetadata = false;
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
-                });*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
