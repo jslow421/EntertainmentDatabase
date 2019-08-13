@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using EntertainmentDatabase.Core.Dto;
+using EntertainmentDatabase.Database.AppAccess.Repository.Interfaces;
 using EntertainmentDatabase.Web.Models.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -14,50 +14,78 @@ namespace EntertainmentDatabase.Web.Controllers
     [Route("api/[controller]")]
     public class LoginApiController : Controller
     {
+        private IUserReadDataAccess UserReadDataAccess { get; }
+        private IUserWriteDataAccess UserWriteDataAccess { get; }
+
+        public LoginApiController(IUserReadDataAccess userReadDataAccess, IUserWriteDataAccess userWriteDataAccess)
+        {
+            UserReadDataAccess = userReadDataAccess;
+            UserWriteDataAccess = userWriteDataAccess;
+        }
+
         [HttpPost("[action]")]
         [AllowAnonymous]
         public async Task Login([FromBody] LoginRequest request)
         {
-            var foundUser = new UserDetailsDto
+            var user = new UserDetailsDto {Email = request.EmailAddress, Username = request.Username, Password = request.Password};
+
+            var foundUser = await UserReadDataAccess.ValidateUserLogin(user);
+
+            if (foundUser.Id != null)
+            {
+                /*var foundUser = new UserDetailsDto
+                            {
+                                Username = request.Username,
+                                Password = request.Password,
+                                Email =  request.Username,
+                                Id = 1
+                            };*/
+
+                var claims = new List<Claim>
+                {
+                    new Claim("UniqueId", foundUser.Id.ToString()),
+                    new Claim(ClaimTypes.Name, foundUser.Email),
+                    new Claim("FullName", foundUser.Username)
+                };
+
+                var claimsIdentity = new ClaimsIdentity(claims, "Entertainment-Database");
+
+                await HttpContext.SignInAsync(
+                    "Entertainment-Database",
+                    new ClaimsPrincipal(claimsIdentity),
+                    new AuthenticationProperties
+                    {
+                        // todo commented out lines are for implementing a remember me option
+                        //IsPersistent = request.IsRememberMeChecked,
+                        //ExpiresUtc = request.IsRememberMeChecked ? DateTime.UtcNow.AddSeconds(AuthenticationOptions.Value.PersistentCookieExpirationInSeconds) : (DateTimeOffset?)null
+                        AllowRefresh = true
+                    });
+                // Implement remember later
+                /*HttpContext.Response.Cookies.Append(
+                    CookieNames.RememberMeCookieName, 
+                    request.IsRememberMeChecked ? "1" : "0",
+                    new CookieOptions
+                    {
+                        Secure = true,
+                        HttpOnly = true,
+                        Path = "/",
+                        SameSite = SameSiteMode.Lax,
+                        Expires = DateTime.UtcNow.AddSeconds(AuthenticationOptions.Value.RememberMeCookieExpirationInSeconds)
+                    }
+                );*/
+            }
+        }
+
+        [HttpPost("[action]")]
+        public async Task CreateUser(CreateUserRequest request)
+        {
+            var user = new UserDetailsDto
             {
                 Username = request.Username,
-                Password = request.Password,
-                Email =  request.Username,
-                Id = 1
+                Password = request.Password
             };
-            
-            var claims = new List<Claim>
-            {
-                new Claim("UniqueId", foundUser.Id.ToString()),
-                new Claim(ClaimTypes.Name, foundUser.Email),
-                new Claim("FullName", foundUser.Username)
-            };
-            
-            var claimsIdentity = new ClaimsIdentity(claims, "Entertainment-Database");
 
-            await HttpContext.SignInAsync(
-                "Entertainment-Database",
-                new ClaimsPrincipal(claimsIdentity),
-                new AuthenticationProperties
-                {
-                    // todo commented out lines are for implementing a remember me option
-                    //IsPersistent = request.IsRememberMeChecked,
-                    //ExpiresUtc = request.IsRememberMeChecked ? DateTime.UtcNow.AddSeconds(AuthenticationOptions.Value.PersistentCookieExpirationInSeconds) : (DateTimeOffset?)null
-                    AllowRefresh = true
-                });
-            // Implement remember later
-            /*HttpContext.Response.Cookies.Append(
-                CookieNames.RememberMeCookieName, 
-                request.IsRememberMeChecked ? "1" : "0",
-                new CookieOptions
-                {
-                    Secure = true,
-                    HttpOnly = true,
-                    Path = "/",
-                    SameSite = SameSiteMode.Lax,
-                    Expires = DateTime.UtcNow.AddSeconds(AuthenticationOptions.Value.RememberMeCookieExpirationInSeconds)
-                }
-            );*/
+            await UserWriteDataAccess.CreateNewUser(user);
         }
     }
 }

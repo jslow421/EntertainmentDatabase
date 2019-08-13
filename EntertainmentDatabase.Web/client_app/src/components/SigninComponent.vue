@@ -25,6 +25,8 @@
 </template>
 
 <script lang="ts">
+    import {UserRestApiService} from "@/user-api-service";
+
     export default {
         props: {
             source: String,

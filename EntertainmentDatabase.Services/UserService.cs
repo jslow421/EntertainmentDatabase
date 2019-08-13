@@ -25,10 +25,16 @@ namespace EntertainmentDatabase.Services
         {
             _config = appSettings.Value;
         }
+        
+        public async Task<UserDetailsDto> Login()
+        {
+
+            return null;
+        }
 
         public async Task<UserDetailsDto> Authenticate(string username, string password)
         {
-            var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
+            /*var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
             
             if (user == null)
                 return null;
@@ -51,7 +57,8 @@ namespace EntertainmentDatabase.Services
             // remove password before returning
             user.Password = null;
 
-            return user;
+            return user;*/
+            return null;
         }
     }
 }

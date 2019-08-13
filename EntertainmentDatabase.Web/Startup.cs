@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using EntertainmentDatabase.Core.Dto;
 using EntertainmentDatabase.Database.AppAccess;
 using EntertainmentDatabase.Database.AppAccess.Repository;
 using EntertainmentDatabase.Database.AppAccess.Repository.Interfaces;
@@ -7,6 +8,7 @@ using EntertainmentDatabase.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,10 +46,13 @@ namespace EntertainmentDatabase.Web
             services.AddSingleton<IDbConnectionFactory>(s => new DbConnectionFactory(movieConnectionString));
             services.AddSingleton<IUpcDataManager, UpcDataManager>();
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IPasswordHasher<UserDetailsDto>, PasswordHasher<UserDetailsDto>>();
             
             // Repositories
             services.AddSingleton<IMovieReadDataAccess, MovieReadDataAccess>();
             services.AddSingleton<IMovieWriteDataAccess, MovieWriteDataAccess>();
+            services.AddSingleton<IUserReadDataAccess, UserReadDataAccess>();
+            services.AddSingleton<IUserWriteDataAccess, UserWriteDataAccess>();
 
             // Auth
             // Reference: https://joonasw.net/view/aspnet-core-2-azure-ad-authentication
