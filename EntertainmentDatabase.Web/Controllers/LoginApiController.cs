@@ -27,7 +27,7 @@ namespace EntertainmentDatabase.Web.Controllers
         [AllowAnonymous]
         public async Task Login([FromBody] LoginRequest request)
         {
-            var user = new UserDetailsDto {Email = request.EmailAddress, Username = request.Username, Password = request.Password};
+            var user = new UserDetailsDto {Username = request.Username, Password = request.Password};
 
             var foundUser = await UserReadDataAccess.ValidateUserLogin(user);
 
@@ -44,8 +44,7 @@ namespace EntertainmentDatabase.Web.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim("UniqueId", foundUser.Id.ToString()),
-                    new Claim(ClaimTypes.Name, foundUser.Email),
-                    new Claim("FullName", foundUser.Username)
+                    new Claim(ClaimTypes.Name, foundUser.Username)
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, "Entertainment-Database");

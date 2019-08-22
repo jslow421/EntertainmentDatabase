@@ -29,12 +29,6 @@ namespace EntertainmentDatabase.Database.AppAccess.Repository
 
             return new UserDetailsDto();
         }
-
-        // This belongs in write
-        /*public async Task CreateUser(UserDetailsDto user)
-        {
-            var hashedPassword = PasswordHasher.HashPassword(user, user.Password);
-        }*/
         
         private async Task<string> GetHashedPasswordFromTable(string username)
         {
