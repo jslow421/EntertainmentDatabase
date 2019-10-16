@@ -66,7 +66,8 @@ namespace EntertainmentDatabase.Web
                     options.DefaultAuthenticateScheme = "Entertainment-Database";
                     
                     // Open ID Connect Scheme
-                    // 1) Respond to challenges from [Authorize] or ChallengeResult returned from controllers by sending the user to authenticate against the specified identity provider.
+                    // 1) Respond to challenges from [Authorize] or ChallengeResult returned from controllers by sending
+                    //     the user to authenticate against the specified identity provider.
                     options.DefaultChallengeScheme = "Entertainment-Database";
                 })
                 .AddCookie("Entertainment-Database", options =>
@@ -84,7 +85,7 @@ namespace EntertainmentDatabase.Web
                     // Reference: https://www.owasp.org/index.php/SameSite
                     options.Cookie.SameSite = SameSiteMode.Lax;
                     options.SlidingExpiration = true;
-                    options.ExpireTimeSpan = new TimeSpan(0, 0, 0, 10);
+                    options.ExpireTimeSpan = new TimeSpan(1, 0, 0, 0);
                     options.Cookie.Expiration = TimeSpan.FromDays(1);
                 });
         }
@@ -99,7 +100,8 @@ namespace EntertainmentDatabase.Web
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                // The default HSTS value is 30 days. You may want to change this for production scenarios,
+                // see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

@@ -31,16 +31,8 @@ namespace EntertainmentDatabase.Web.Controllers
 
             var foundUser = await UserReadDataAccess.ValidateUserLogin(user);
 
-            if (foundUser.Id != null)
+            if (foundUser != null)
             {
-                /*var foundUser = new UserDetailsDto
-                            {
-                                Username = request.Username,
-                                Password = request.Password,
-                                Email =  request.Username,
-                                Id = 1
-                            };*/
-
                 var claims = new List<Claim>
                 {
                     new Claim("UniqueId", foundUser.Id.ToString()),

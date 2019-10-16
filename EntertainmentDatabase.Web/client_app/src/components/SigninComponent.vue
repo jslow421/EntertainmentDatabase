@@ -28,7 +28,6 @@
     import {UserRestApiService} from "@/user-api-service";
     import Vue from "vue";
     import router from "@/router";
-    import Home from "@/views/Home.vue";
 
     export default Vue.extend ({
         props: {
